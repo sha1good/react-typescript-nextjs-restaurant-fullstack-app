@@ -1,11 +1,11 @@
-"use client";
 import Link from "next/link";
 import Menu from "./Menu";
 import CartIcon from "./Cart";
 import Image from "next/image";
+import UserLink from "./UserLink";
 
 const Navbar = () => {
-  const user = false;
+  
   return (
     <div className="h-12 text-red-500  p-4 flex items-center justify-between border-b-2 border-red-500 uppercase md:h-24 lg:px-20 xl:px-40">
       {/* lEFT lINKS */}
@@ -26,7 +26,7 @@ const Navbar = () => {
           <Image src="/phone.png" alt="phone" width={20} height={20} />
           <span> 289 780 9320</span>
         </div>
-        {!user ? <Link href="/login">Login</Link> : <Link href="/order">Order</Link>}
+        <UserLink />
         <CartIcon />
       </div>
     </div>

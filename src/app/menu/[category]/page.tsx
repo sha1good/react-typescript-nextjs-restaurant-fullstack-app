@@ -2,8 +2,27 @@ import React from "react";
 import { pizzas } from "@/data";
 import Link from "next/link";
 import Image from "next/image";
+import { ProductType } from "@/types/types";
 
-const Category = () => {
+type Props ={
+   params: { category: string }
+}
+
+
+const getData = async (category:string) =>{
+  const  res = await fetch(`http://localhost:3000/api/products?category=${category}`,{
+     cache: "no-store"
+  })
+
+if(!res.ok){
+   throw new Error("Something went wrong!")
+}
+ return res.json();
+}
+
+
+const Category = async ({params}: Props) => {
+   const pizzas: ProductType = await getData(params.category)
   return (
     <div className="text-red-500 flex flex-wrap">
       {pizzas.map((pizza) => (

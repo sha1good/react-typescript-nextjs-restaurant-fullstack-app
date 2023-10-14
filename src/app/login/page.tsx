@@ -1,7 +1,23 @@
+
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
+import  {useSession, signIn }  from "next-auth/react"
+import { useRouter} from "next/navigation";
 
 const Login = () => {
+
+    const { data,status } = useSession()
+     const router = useRouter();
+
+         if(status === "loading"){
+         return <p>Loading...</p>
+     }
+
+     if( status === "authenticated"){
+       router.push("/")
+     }
   return (
     <div className="flex flex-col items-center justify-center h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] p-4">
       {/* Box*/}
@@ -14,7 +30,7 @@ const Login = () => {
         <div className="flex flex-col h-2/3 p-2 gap-4 md:w-1/2 md:p-4 md:gap-3">
           <h1 className="font-bold text-xl">Welcome</h1>
           <p>Log into your account or create a new one using social buttons</p>
-          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md items-center md:w-max">
+          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md items-center md:w-max" onClick={() => signIn("google")}>
             <Image src="/google.png" alt="" width={20} height={20} />
             <span>Sign in with Google</span>
           </button>
